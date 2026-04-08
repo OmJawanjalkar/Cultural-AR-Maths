@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cultural AR Maths — Geometry AR Marker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #FFF8E7;
+      color: #2D2D2D;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #CC5500;
+      letter-spacing: -0.5px;
+    }
+    .header p {
+      font-size: 14px;
+      color: #6B6B6B;
+      margin-top: 6px;
+    }
+
+    /* ── Marker card ── */
+    .marker-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+      border: 2px solid #FFE0A0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    .marker-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FF6B00;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── Hiro marker image ── */
+    .marker-frame {
+      width: 240px;
+      height: 240px;
+      border: 6px solid #2D2D2D;
+      border-radius: 8px;
+      padding: 12px;
+      background: white;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Draw Hiro marker using CSS grid + Unicode blocks */
+    .hiro-grid {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      gap: 0;
+    }
+
+    .hiro-grid .b { background: #000; }
+    .hiro-grid .w { background: #fff; }
+
+    /* Hiro pattern row by row (7×7) */
+
+    .marker-note {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+    }
+
+    /* ── Instructions ── */
+    .steps {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+      border: 1px solid #FFE0A0;
+      max-width: 480px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .steps h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #CC5500;
+      margin-bottom: 16px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      background: #FF6B00;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .step p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #444;
+    }
+    .step strong { color: #CC5500; }
+
+    /* ── Tips ── */
+    .tips {
+      background: #FFF3E0;
+      border-radius: 12px;
+      padding: 18px 22px;
+      max-width: 480px;
+      width: 100%;
+      border: 1px solid #FFD08A;
+      margin-bottom: 24px;
+    }
+    .tips h3 { font-size: 14px; font-weight: 700; color: #CC5500; margin-bottom: 10px; }
+    .tips ul { padding-left: 18px; }
+    .tips li { font-size: 13px; color: #555; margin-bottom: 6px; line-height: 1.5; }
+
+    /* ── Print styles ── */
+    @media print {
+      body { background: white; padding: 20px; }
+      .steps, .tips, .no-print { display: none; }
+      .marker-card { box-shadow: none; border: 2px solid #ddd; page-break-inside: avoid; }
+    }
+
+    @media (max-width: 520px) {
+      .marker-card { padding: 24px; }
+      .marker-frame { width: 200px; height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>📐 Cultural AR Maths</h1>
+    <p>3D Geometry Playground — AR Marker Sheet</p>
+  </div>
+
+  <!-- Marker card -->
+  <div class="marker-card">
+    <div class="marker-title">Hiro AR Marker</div>
+
+    <!-- Hiro marker — exact 7×7 pattern encoded as SVG -->
+    <div class="marker-frame">
+      <svg viewBox="0 0 7 7" width="100%" height="100%"
+           style="image-rendering: pixelated; display: block;">
+        <!-- Row 0 -->
+        <rect x="0" y="0" width="1" height="1" fill="#000"/>
+        <rect x="1" y="0" width="1" height="1" fill="#000"/>
+        <rect x="2" y="0" width="1" height="1" fill="#000"/>
+        <rect x="3" y="0" width="1" height="1" fill="#000"/>
+        <rect x="4" y="0" width="1" height="1" fill="#000"/>
+        <rect x="5" y="0" width="1" height="1" fill="#000"/>
+        <rect x="6" y="0" width="1" height="1" fill="#000"/>
+        <!-- Row 1 -->
+        <rect x="0" y="1" width="1" height="1" fill="#000"/>
+        <rect x="1" y="1" width="1" height="1" fill="#fff"/>
+        <rect x="2" y="1" width="1" height="1" fill="#fff"/>
+        <rect x="3" y="1" width="1" height="1" fill="#000"/>
+        <rect x="4" y="1" width="1" height="1" fill="#fff"/>
+        <rect x="5" y="1" width="1" height="1" fill="#fff"/>
+        <rect x="6" y="1" width="1" height="1" fill="#000"/>
+        <!-- Row 2 -->
+        <rect x="0" y="2" width="1" height="1" fill="#000"/>
+        <rect x="1" y="2" width="1" height="1" fill="#fff"/>
+        <rect x="2" y="2" width="1" height="1" fill="#000"/>
+        <rect x="3" y="2" width="1" height="1" fill="#000"/>
+        <rect x="4" y="2" width="1" height="1" fill="#000"/>
+        <rect x="5" y="2" width="1" height="1" fill="#fff"/>
+        <rect x="6" y="2" width="1" height="1" fill="#000"/>
+        <!-- Row 3 -->
+        <rect x="0" y="3" width="1" height="1" fill="#000"/>
+        <rect x="1" y="3" width="1" height="1" fill="#000"/>
+        <rect x="2" y="3" width="1" height="1" fill="#fff"/>
+        <rect x="3" y="3" width="1" height="1" fill="#000"/>
+        <rect x="4" y="3" width="1" height="1" fill="#fff"/>
+        <rect x="5" y="3" width="1" height="1" fill="#000"/>
+        <rect x="6" y="3" width="1" height="1" fill="#000"/>
+        <!-- Row 4 -->
+        <rect x="0" y="4" width="1" height="1" fill="#000"/>
+        <rect x="1" y="4" width="1" height="1" fill="#fff"/>
+        <rect x="2" y="4" width="1" height="1" fill="#000"/>
+        <rect x="3" y="4" width="1" height="1" fill="#fff"/>
+        <rect x="4" y="4" width="1" height="1" fill="#000"/>
+        <rect x="5" y="4" width="1" height="1" fill="#fff"/>
+        <rect x="6" y="4" width="1" height="1" fill="#000"/>
+        <!-- Row 5 -->
+        <rect x="0" y="5" width="1" height="1" fill="#000"/>
+        <rect x="1" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="2" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="3" y="5" width="1" height="1" fill="#000"/>
+        <rect x="4" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="5" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="6" y="5" width="1" height="1" fill="#000"/>
+        <!-- Row 6 -->
+        <rect x="0" y="6" width="1" height="1" fill="#000"/>
+        <rect x="1" y="6" width="1" height="1" fill="#000"/>
+        <rect x="2" y="6" width="1" height="1" fill="#000"/>
+        <rect x="3" y="6" width="1" height="1" fill="#000"/>
+        <rect x="4" y="6" width="1" height="1" fill="#000"/>
+        <rect x="5" y="6" width="1" height="1" fill="#000"/>
+        <rect x="6" y="6" width="1" height="1" fill="#000"/>
+      </svg>
+    </div>
+
+    <p class="marker-note">Print this page and hold the marker in front of your camera</p>
+
+    <!-- Print button (hidden in print) -->
+    <button
+      class="no-print"
+      onclick="window.print()"
+      style="
+        padding: 10px 28px;
+        background: #FF6B00;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 3px 12px rgba(255,107,0,0.35);
+      "
+    >
+      🖨️ Print This Page
+    </button>
+  </div>
+
+  <!-- Instructions -->
+  <div class="steps">
+    <h2>📱 How to Use</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <p>Print this page at <strong>100% scale</strong> (do not scale to fit). The marker should be at least <strong>8 cm × 8 cm</strong>.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <p>Open <strong>Cultural AR Maths</strong> and navigate to <strong>Modules → 3D Geometry Playground</strong>.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <p>Allow camera access when prompted.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <p>Point your camera at the <strong>black-and-white marker</strong> above. A 3D shape will appear on it.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <p>Use the toolbar at the bottom to <strong>spawn shapes, slice them, unfold nets, and compare volumes</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="tips">
+    <h3>💡 Tips for Best AR Experience</h3>
+    <ul>
+      <li>Keep the marker flat on a desk or table</li>
+      <li>Ensure good, even lighting — avoid direct glare on the marker</li>
+      <li>Hold the phone 20–50 cm above the marker</li>
+      <li>Keep the entire marker visible in frame</li>
+      <li>If the 3D shape disappears, slowly move the camera back toward the marker</li>
+      <li>No printer? Use this page on a second device's screen (works too!)</li>
+    </ul>
+  </div>
+
+  <p class="no-print" style="font-size: 12px; color: #aaa; text-align: center; margin-top: 8px;">
+    Cultural AR Maths · AR-based Mathematics Learning
+  </p>
+
+</body>
+</html>
